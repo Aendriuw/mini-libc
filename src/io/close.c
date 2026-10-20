@@ -7,6 +7,6 @@
 
 int close(int fd)
 {
-	/* TODO: Implement close(). */
-	return -1;
+	return syscall(__NR_close, fd);
 }
+
