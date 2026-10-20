@@ -21,6 +21,7 @@ off_t lseek(int fd, off_t offset, int whence);
 int truncate(const char *path, off_t length);
 int ftruncate(int fd, off_t length);
 unsigned int sleep(unsigned int seconds);
+long nanosleep(const struct timespec *req, struct timespec *rem);
 
 #ifdef __cplusplus
 }
