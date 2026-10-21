@@ -9,9 +9,9 @@ extern "C" {
 
 #include <internal/types.h>
 
-typedef struct timespec {
+struct timespec {
     long tv_sec, tv_nsec;
-} timespec;
+};
 
 long nanosleep(const struct timespec *req, struct timespec *rem);
 
