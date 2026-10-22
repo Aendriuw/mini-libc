@@ -9,29 +9,71 @@
 
 void *malloc(size_t size)
 {
-	/* TODO: Implement malloc(). */
-	return NULL;
+	void *ret = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+
+	if (ret == MAP_FAILED) {
+		return NULL;
+	}
+
+	if (mem_list_add(ret, size) != 0) {
+		munmap(ret, size);
+		return NULL;
+	}
+
+	return (void *)ret;
 }
 
 void *calloc(size_t nmemb, size_t size)
 {
-	/* TODO: Implement calloc(). */
-	return NULL;
+	void *ret = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+
+	if (ret == MAP_FAILED) {
+		return NULL;
+	}
+
+	if (mem_list_add(ret, size) != 0) {
+		munmap(ret, size);
+		return NULL;
+	}
+
+	memset(ret, 0, size * nmemb);
+
+	return (void *)ret;
 }
 
 void free(void *ptr)
 {
-	/* TODO: Implement free(). */
+	struct mem_list *curr_ptr_mem = mem_list_find(ptr);
+
+	munmap(curr_ptr_mem->start, curr_ptr_mem->len);
+	mem_list_del(curr_ptr_mem->start);
 }
 
 void *realloc(void *ptr, size_t size)
 {
-	/* TODO: Implement realloc(). */
-	return NULL;
+	if (ptr == NULL) {
+		return malloc(size);
+	}
+
+	if (size == 0) {
+		free(ptr);
+		return NULL;
+	}
+
+	void *realloc_ptr = malloc(size);
+	if (realloc_ptr != NULL) {
+		memcpy(realloc_ptr, ptr, size);
+		free(ptr);
+	}
+
+	return realloc_ptr;
 }
 
 void *reallocarray(void *ptr, size_t nmemb, size_t size)
 {
-	/* TODO: Implement reallocarray(). */
-	return NULL;
+	size_t prod = nmemb * size;
+	if (prod / nmemb != size) {
+		return NULL;
+	}
+	return realloc(ptr, size * nmemb);
 }
