@@ -35,9 +35,9 @@ char *strcat(char *destination, const char *source)
 
 char *strncat(char *destination, const char *source, size_t len)
 {
-	size_t dest_len = strlen(destination);	
+	size_t dest_len = strlen(destination);
 	strncpy(destination + dest_len, source, len);
-	destination[dest_len + len] = '\0'; 
+	destination[dest_len + len] = '\0';
 
 	return destination;
 }
@@ -168,7 +168,7 @@ void *memmove(void *destination, const void *source, size_t num)
 	const unsigned char *s = source;
 	unsigned char *d = destination;
 	for (size_t i = num; i != 0; i--) {
-		d[i - 1] = s[i - 1];	
+		d[i - 1] = s[i - 1];
 	}
 
 	return destination;
@@ -178,7 +178,7 @@ int memcmp(const void *ptr1, const void *ptr2, size_t num)
 {
 	const unsigned char *p1 = ptr1;
 	const unsigned char *p2 = ptr2;
-	
+
 	for (size_t i = 0; i < num; i++) {
 		if (p1[i] != p2[i]) {
 			return (int)(p2[i] - p1[i]);

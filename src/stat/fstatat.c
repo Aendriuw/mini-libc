@@ -66,7 +66,7 @@ int fstatat_statx(int fd, const char *restrict path, struct stat *restrict st, i
 	st->st_ctime = stx.stx_ctime.tv_sec;
 	st->st_ctime_nsec = stx.stx_ctime.tv_nsec;
 	st->st_mtime = stx.stx_mtime.tv_sec;
-	st->st_mtime_nsec = stx.stx_mtime.tv_nsec;	
+	st->st_mtime_nsec = stx.stx_mtime.tv_nsec;
 
 	return 0;
 }
